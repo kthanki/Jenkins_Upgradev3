@@ -11,13 +11,21 @@ pipeline {
                     archiveArtifacts artifacts: '**/*.war'
                 }
             }
-               stage('Deploy in Staging Environment'){
-               build job : 'Deploy_application_staging_environment'
+        }
+        stage('Deploy in Staging Environment'){
+            steps{
+                build job : 'Deploy_application_staging_environment'
 
             }
             
         }
-       
-    }        
+        stage('Deploy to Production'){
+            steps{
+                timeout(time:5, unit:'DAYS'){
+                    input message:'Approve PRODUCTION Deployment?'
+                }
+                build job : 'Deploy_application_Prod_environment'
+            }
+        }
+    }
 }
-
