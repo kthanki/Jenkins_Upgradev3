@@ -12,7 +12,7 @@ pipeline {
                 }
             }
                stage('Deploy in Staging Environment'){
-               build job: 'Deploy_application_staging_environment'
+               build job : 'Deploy_application_staging_environment'
 
             }
             
